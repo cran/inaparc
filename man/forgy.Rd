@@ -11,7 +11,7 @@ forgy(x, k)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer specifying the number of clusters.}
 }
 
@@ -32,7 +32,7 @@ Zeynel Cebeci, Cagatay Cebeci
 \references{
 Forgy, E.W. (1965). Cluster analysis of multivariate data: Efficiency vs interpretability of classification, \emph{Biometrics}, 21 (3) : 768-769.
 
-Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. <arXiv:https://arxiv.org/pdf/1209.1960.pdf>
+Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. arXiv:\url{https://arxiv.org/pdf/1209.1960.pdf}
 }
 
 \seealso{
@@ -78,4 +78,4 @@ print(v)
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}

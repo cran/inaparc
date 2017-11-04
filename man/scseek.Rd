@@ -11,7 +11,7 @@ scseek(x, k, tv)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer for the number of clusters.}
   \item{tv}{a number to be used as the threshold distance which is directly input by the user. Also it is possible to compute \var{T}, a threshold distance value with the following options of \code{tv} argument:
   \itemize{
@@ -42,7 +42,7 @@ Ball, G.H. & Hall, D.J. (1967). A clustering technique for summarizing multivari
 
 Tou, J.T. & Gonzalez,R.C. (1974). \emph{Pattern Recognition Principles}. Addison-Wesley, Reading, MA. <ISBN:9780201075861>
 
-Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. <arXiv:https://arxiv.org/pdf/1209.1960.pdf>
+Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. arXiv:\url{https://arxiv.org/pdf/1209.1960.pdf}
 }
 \seealso{
  \code{\link{aldaoud}},
@@ -88,8 +88,8 @@ print(v2)
 
 \concept{initialization of cluster prototypes}
 \concept{prototype-based clustering}
-\concept{partitional clustering}
+\concept{partitioning clustering}
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}

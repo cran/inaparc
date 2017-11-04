@@ -11,7 +11,7 @@ spaeth(x, k)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer specifying the number of clusters.}
 }
 
@@ -30,9 +30,9 @@ Zeynel Cebeci, Cagatay Cebeci
 }
 
 \references{
-Spaeth, H. (1977). Computational experiences with the exchange method: Applied to four commonly used partitioning cluster analysis criteria, \emph{European J of Operational Rsch.}, 1(1):23-31. <doi:https://doi.org/10.1016/S0377-2217(77)81005-9>
+Spaeth, H. (1977). Computational experiences with the exchange method: Applied to four commonly used partitioning cluster analysis criteria, \emph{European J of Operational Rsch.}, 1(1):23-31. doi:\url{https://doi.org/10.1016/S0377-2217(77)81005-9}
 
-Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. <arXiv:https://arxiv.org/pdf/1209.1960.pdf>
+Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. arXiv:\url{https://arxiv.org/pdf/1209.1960.pdf}
 }
 
 \seealso{
@@ -74,8 +74,8 @@ print(v)
 \concept{initialization of cluster prototypes}
 \concept{sampling for prototype selection}
 \concept{prototype-based clustering}
-\concept{partitional clustering}
+\concept{partitioning clustering}
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}

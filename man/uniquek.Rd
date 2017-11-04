@@ -11,7 +11,7 @@ uniquek(x, k, sfidx)
 }
 
 \arguments{
- \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer specifying the number of clusters.}
   \item{sfidx}{an integer specifying the column index of the selected feature for random sampling. If missing, it is internally determined by comparing the number of unique values for all the features in the data set. The feature having the maximum number of unique values is used as the selected feature.}
 }
@@ -74,8 +74,8 @@ print(v)
 
 \concept{initialization of cluster prototypes}
 \concept{prototype-based clustering}
-\concept{partitional clustering}
+\concept{partitioning clustering}
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}

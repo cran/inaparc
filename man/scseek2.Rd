@@ -11,7 +11,7 @@ scseek2(x, k, sfidx, tv)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer for the number of clusters.}
   \item{sfidx}{an integer specifying the column index of the selected feature for random sampling. If missing, it is internally determined by comparing the coefficients of variation of all features in the data set. The feature having the maximum coefficent of variation is used as the selected feature.}
   \item{tv}{a number to be used as the threshold distance which is directly input by the user. Also it is possible to compute \var{T}, a threshold distance value with the following options of \code{tv} argument:
@@ -88,8 +88,8 @@ print(v2)
 
 \concept{initialization of cluster prototypes}
 \concept{prototype-based clustering}
-\concept{partitional clustering}
+\concept{partitioning clustering}
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}

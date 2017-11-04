@@ -12,7 +12,7 @@ inscsf(x, k, sfidx, ctype)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer specifying the number of clusters.}
   \item{sfidx}{an integer specifying the column index of the selected feature. If missing, it is internally determined by comparing the number of unique values for all the features in the data set. The feature having the maximum number of unique values is used as the selected feature.}
   \item{ctype}{a string for the type of the selected center. The options are \sQuote{avg} for average, \sQuote{med} for median or \sQuote{mod} for mode. The default value is \sQuote{avg}.}
@@ -102,8 +102,8 @@ print(v2)
 
 \concept{initialization of cluster prototypes}
 \concept{prototype-based clustering}
-\concept{partitional clustering}
+\concept{partitioning clustering}
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}

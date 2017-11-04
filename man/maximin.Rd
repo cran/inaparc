@@ -11,7 +11,7 @@ maximin(x, k)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer for the number of clusters.}
 }
 
@@ -31,16 +31,15 @@ The algorithm generally works well with circular shaped clusters whose radius ar
 Zeynel Cebeci, Cagatay Cebeci
 }
 \references{
-Spaeth, H. (1977). Computational experiences with the exchange method: Applied to four commonly used partitioning cluster analysis criteria, \emph{European Journal of Operational Research} 1 (1): 23-31. <doi:https://doi.org/10.1016/S0377-2217(77)81005-9>
+Spaeth, H. (1977). Computational experiences with the exchange method: Applied to four commonly used partitioning cluster analysis criteria, \emph{European Journal of Operational Research} 1 (1): 23-31. doi:\url{https://doi.org/10.1016/S0377-2217(77)81005-9}
 
-Gonzalez, T. (1985), Clustering to minimize the maximum intercluster distance, \emph{Theoretical Computer Science} 38 (2-3): 293-306. \cr <http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.366.8183&rep=rep1&type=pdf>
+Gonzalez, T. (1985), Clustering to minimize the maximum intercluster distance, \emph{Theoretical Computer Science} 38 (2-3): 293-306. url:\url{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.366.8183&rep=rep1&type=pdf}
 
 Duda, R.O., Hart, P.E. & Stork, D.G. (2000). \emph{Pattern Classification}, Wiley-Interscience. <ISBN:978-0-471-05669-0>
 
-Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. <arXiv:https://arxiv.org/pdf/1209.1960.pdf>
+Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. arXiv:\url{https://arxiv.org/pdf/1209.1960.pdf}
 
-Philpot, W. (2001). Topic 8: Clustering/Unsupervised Classification in \emph{Lecture Notes, CEE 615: Digital Image Processing - Jan 2001, Cornell Univ.},
-\cr <http://ceeserver.cee.cornell.edu/wdp2/cee6150/Monograph/615_08_UnSuper_Class_rev01.pdf>
+Philpot, W. (2001). Topic 8: Clustering/Unsupervised Classification in \emph{Lecture Notes, CEE 615: Digital Image Processing - Jan 2001, Cornell Univ.}, url:\url{http://ceeserver.cee.cornell.edu/wdp2/cee6150/Monograph/615_08_UnSuper_Class_rev01.pdf}
 }
 \seealso{
  \code{\link{aldaoud}},
@@ -80,8 +79,8 @@ print(v)
 
 \concept{initialization of cluster prototypes}
 \concept{prototype-based clustering}
-\concept{partitional clustering}
+\concept{partitioning clustering}
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}

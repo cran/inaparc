@@ -11,7 +11,7 @@ insdev(x, k, sfidx)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer specifying the number of clusters.}
   \item{sfidx}{an integer specifying the column index of the selected feature. Here, in this function we use the feature with high variability as the selected feature because it dominates the clustering results (Khan, 2912). If missing, so it is internally determined by comparing the coefficents of variation for all the features in the data set. The feature having the maximum coefficient of variation is used as the selected feature.}
 }
@@ -34,7 +34,7 @@ Zeynel Cebeci, Cagatay Cebeci
 }
 
 \references{
-Khan, F. (2012). An initial seed selection algorithm for k-means clustering of georeferenced data to improve replicability of cluster assignments for mapping application. \emph{Applied Soft Computing}, 12 (11) : 3698-3700. <doi:https://doi.org/10.1016/j.asoc.2012.07.021>
+Khan, F. (2012). An initial seed selection algorithm for k-means clustering of georeferenced data to improve replicability of cluster assignments for mapping application. \emph{Applied Soft Computing}, 12 (11) : 3698-3700. doi:\url{https://doi.org/10.1016/j.asoc.2012.07.021}
 }
 
 \seealso{
@@ -74,8 +74,8 @@ print(v)
 
 \concept{initialization of cluster prototypes}
 \concept{prototype-based clustering}
-\concept{partitional clustering}
+\concept{partitioning clustering}
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}

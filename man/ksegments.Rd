@@ -11,7 +11,7 @@ ksegments(x, k, ctype)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer specifying the number of clusters.}
   \item{ctype}{a string for the type of centroid. The options are \sQuote{avg} for average and \sQuote{med} for median of the objects in the segments. The default is \sQuote{avg}.}
 }
@@ -63,8 +63,8 @@ print(v)
 
 \concept{initialization of cluster prototypes}
 \concept{prototype-based clustering}
-\concept{partitional clustering}
+\concept{partitioning clustering}
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}

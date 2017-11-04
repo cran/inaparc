@@ -11,7 +11,7 @@ kkz(x, k)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer specifying the number of clusters.}
 }
 
@@ -30,7 +30,7 @@ Zeynel Cebeci, Cagatay Cebeci
 }
 
 \references{
-Katsavounidis, I., Kuo, C. & Zhang, Z. (1994). A new initialization technique for generalized Lloyd iteration. \emph{IEEE Signal Processing Letters}, 1 (10): 144-146. \cr <https://pdfs.semanticscholar.org/0103/d3599757c77f6f3cbe3daf2470f13419cd90.pdf>
+Katsavounidis, I., Kuo, C. & Zhang, Z. (1994). A new initialization technique for generalized Lloyd iteration. \emph{IEEE Signal Processing Letters}, 1 (10): 144-146. url:\url{https://pdfs.semanticscholar.org/0103/d3599757c77f6f3cbe3daf2470f13419cd90.pdf}
 }
 
 \seealso{
@@ -71,9 +71,8 @@ print(v)
 
 \concept{initialization of cluster prototypes}
 \concept{prototype-based clustering}
-\concept{partitional clustering}
+\concept{partitioning clustering}
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-
-\keyword{Statistics|cluster}
+\keyword{cluster}

@@ -11,7 +11,7 @@ firstk(x, k)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer specifying the number of clusters.}
 }
 
@@ -30,9 +30,9 @@ Zeynel Cebeci, Cagatay Cebeci
 }
 
 \references{
-MacQueen, J.B. (1967). Some methods for classification and analysis of multivariate observations, in \emph{Proc. of 5-th Berkeley Symp. on Mathematical Statistics and Probability}, Berkeley, University of California Press, 1: 281-297.\cr <http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.308.8619&rep=rep1&type=pdf>
+MacQueen, J.B. (1967). Some methods for classification and analysis of multivariate observations, in \emph{Proc. of 5th Berkeley Symp. on Mathematical Statistics and Probability}, Berkeley, University of California Press, 1: 281-297. url:\url{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.308.8619&rep=rep1&type=pdf}
 
-Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. <arXiv:https://arxiv.org/pdf/1209.1960.pdf>
+Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. arXiv:\url{https://arxiv.org/pdf/1209.1960.pdf}
 }
 
 \seealso{
@@ -73,8 +73,8 @@ print(v)
 
 \concept{initialization of cluster prototypes}
 \concept{prototype-based clustering}
-\concept{partitional clustering}
+\concept{partitioning clustering}
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}

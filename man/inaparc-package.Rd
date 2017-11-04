@@ -25,16 +25,15 @@ Membership degrees matrices are usually initialized with the techniques based on
 \references{
 Bezdek J.C. (1981). Pattern recognition with fuzzy objective function algorithms. Plenum, NY, 256 p. <ISBN:0306406713>
 
-Borgelt, C., (2005). \emph{Prototype-based classification and clustering}. Habilitationsschrift zur Erlangung der Venia legendi fuer Informatik, vorgelegt der Fakultaet fuer Informatik der Otto-von-Guericke-Universitaet Magdeburg, Magdeburg, 22 June 2005. <http://www.borgelt.net/habil/pbcc.pdf>
+Borgelt, C., (2005). \emph{Prototype-based classification and clustering}. Habilitationsschrift zur Erlangung der Venia legendi fuer Informatik, vorgelegt der Fakultaet fuer Informatik der Otto-von-Guericke-Universitaet Magdeburg, Magdeburg, 22 June 2005. url:\url{http://www.borgelt.net/habil/pbcc.pdf}
 
-Rokah, L. & Maimon, O. (2005). Clustering methods. In \emph{Data Mining and Knowledge Discovery Handbook (ed. O. Maimon)}, Springer US. pp. 321-352. \cr
-<http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.149.9326&rep=rep1&type=pdf>
+Rokah, L. & Maimon, O. (2005). Clustering methods. In \emph{Data Mining and Knowledge Discovery Handbook (ed. O. Maimon)}, Springer US. pp. 321-352. url:\url{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.149.9326&rep=rep1&type=pdf}
 
-Tan, P. N., Steinbach, M., & Kumar, V. (2006). Cluster analysis: Basic concepts and algorithms. In \emph{Introduction to Data Mining}. Pearson Addison Wesley. \cr <http://www-users.cs.umn.edu/~kumar/dmbook/ch8.pdf>
+Tan, P. N., Steinbach, M., & Kumar, V. (2006). Cluster analysis: Basic concepts and algorithms. In \emph{Introduction to Data Mining}. Pearson Addison Wesley. url:\url{http://www-users.cs.umn.edu/~kumar/dmbook/ch8.pdf}
 
-Khan, F. (2012). An initial seed selection algorithm for k-means clustering of georeferenced data to improve replicability of cluster assignments for mapping application. \emph{Applied Soft Computing}, 12 (11) : 3698-3700. <doi:https://doi.org/10.1016/j.asoc.2012.07.021>
+Khan, F. (2012). An initial seed selection algorithm for k-means clustering of georeferenced data to improve replicability of cluster assignments for mapping application. \emph{Applied Soft Computing}, 12 (11) : 3698-3700. doi:\url{https://doi.org/10.1016/j.asoc.2012.07.021}
 
-Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. <arXiv:https://arxiv.org/pdf/1209.1960.pdf>
+Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. arXiv:\url{https://arxiv.org/pdf/1209.1960.pdf}
 }
 
 \seealso{
@@ -76,8 +75,10 @@ Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficie
 \concept{initialization of membership degrees matrix}
 \concept{prototype-based clustering}
 \concept{partitioning clustering}
+\concept{partitional clustering}
+\concept{non-hierarchial clustering}
+\concept{flast clustering}
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
-
+\keyword{cluster}

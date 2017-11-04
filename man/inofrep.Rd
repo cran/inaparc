@@ -11,7 +11,7 @@ inofrep(x, k, sfidx, sfpm, binrule, nbins, tcmethod, tc)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer for the number of clusters.}
   \item{sfidx}{an integer specifying the column index of a selected feature which is used for determination of protoypes. If missing, it is internally determined by comparing the peak counts of all features in the data set, and the feature having maximum number of peaks is used as the selected feature.}
   \item{sfpm}{a numeric two-column matrix containing the middle values and frequencies of the peaks of the selected feature, respectively.}
@@ -33,9 +33,9 @@ Inofrep, \dfn{initialization on the frequency polygon} of a selected feature is 
 }
 
 \references{
-Aitnouri E.M., Wang, S., Ziou, D., Vaillancourt, J. & Gagnon, L. (1999). An algorithm for determination of the number of modes for pdf estimation of multi-modal histograms, in \emph{Proc. of Vision Interface '99}, Trois-Rivieres, Canada, May 1999, p. 368-374. \cr <http://www.crim.ca/perso/langis.gagnon/articles/vi99_aitnouri.pdf> 
+Aitnouri E.M., Wang, S., Ziou, D., Vaillancourt, J. & Gagnon, L. (1999). An algorithm for determination of the number of modes for pdf estimation of multi-modal histograms, in \emph{Proc. of Vision Interface '99}, Trois-Rivieres, Canada, May 1999, p. 368-374. \cr \url{http://www.crim.ca/perso/langis.gagnon/articles/vi99_aitnouri.pdf} 
 
-Tan, P. N., Steinbach, M., & Kumar, V. (2006). Cluster analysis: Basic concepts and algorithms. In \emph{Introduction to Data Mining}, Pearson Addison Wesley. <http://www-users.cs.umn.edu/~kumar/dmbook/ch8.pdf>
+Tan, P. N., Steinbach, M., & Kumar, V. (2006). Cluster analysis: Basic concepts and algorithms. In \emph{Introduction to Data Mining}, Pearson Addison Wesley. \url{http://www-users.cs.umn.edu/~kumar/dmbook/ch8.pdf}
 }
 
 \author{
@@ -93,8 +93,8 @@ print(v)
 
 \concept{initialization of cluster prototypes}
 \concept{prototype-based clustering}
-\concept{partitional clustering}
+\concept{partitioning clustering}
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}

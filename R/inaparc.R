@@ -1,27 +1,25 @@
 aldaoud <- function(x, k){ 
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
+  n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", nrow(x), " for the data set being processed.")
-    stop(errmsg)
-  }
-  n <- nrow(x); p <- ncol(x)
+  if(k < 1 || k > n)
+    stop(paste0("Argument k should be between 1 and ", n, " for the data set being processed."))
   v <- matrix(nrow=k, ncol=p, 0)
   fmax <- which.max(apply(x,2,var))
-  x <- x[order(x[,fmax]),]
+  x <- as.matrix(x[order(x[,fmax]),])
   r <- floor(n/k)
   ridx <- 1
   for(i in 1:k){
     for(j in 1:p)
-      v[i,j] <- median(x[ridx:ridx+r-1,j])
+      v[i,j] <- median(x[ridx:(ridx+r-1),j])
     ridx <- ridx + r
   }
   colnames(v) <- colnames(x)
@@ -37,19 +35,17 @@ aldaoud <- function(x, k){
 ballhall <- function(x, k, tv){
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", nrow(x), " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > n)
+    stop(paste0("Argument k should be between 1 and ", n, " for the data set being processed."))
   if(missing(tv))
     tv = "md"
   if(!is.numeric(tv)){
@@ -84,7 +80,7 @@ ballhall <- function(x, k, tv){
       for(j in 1:nrow(xs)){
         ridx <- 0
         for(l in xrows){
-           if(.sqeucdist(xs[j,1:p], x[l,1:p]) > T)
+           if(.sqeucdist(xs[j,1:p], x[l, 1:p]) > T)
              ridx <- ridx + 1
         }
         if(ridx == length(xrows)){
@@ -94,9 +90,11 @@ ballhall <- function(x, k, tv){
       }
     }
   }
-  v <- x[xrows,1:p] 
-  colnames(v) <- colnames(x[,1:p])
-  rownames(v) <- paste0("Cl.", 1:nrow(v))
+  v <- x[xrows, 1:p] 
+  if(p==1)
+    v <- as.matrix(x[xrows, 1:p]) 
+  if(k > 1)
+    rownames(v) <- paste0("Cl.", 1:nrow(v))
   result <- list()
     result$v <- v
     result$ctype <- "obj"
@@ -108,55 +106,56 @@ ballhall <- function(x, k, tv){
 crsamp <- function(x, k, r, ctype){
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
+  n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", nrow(x), " for the data set being processed.")
-    stop(errmsg)
-  }
-  n <- nrow(x); p <- ncol(x)
+  if(k < 2 || k > n)
+    stop(paste0("Argument k should be between 2 and ", n, " for the data set being processed."))
   if(missing(r)) 
     r <- 2
-  if(!is.numeric(r)){
-    errmsg <- paste0("Argument r must be a positive integer between 2 and ", k,".")
-    stop(errmsg)
-  }
-  if(r < 1 || r > k){
-    errmsg <- paste0("Argument r must be a positive integer between 2 and ", k,".")
-    stop(errmsg)
-  }
+  if(!is.numeric(r))
+    stop(paste0("Argument r must be a positive integer between 2 and ", k,"."))
+  if(r < 2 || r > floor(n/k))
+    stop(paste0("Argument r must be a positive integer between 2 and ", floor(n/k),"."))
   if(missing(ctype)) 
     ctype <- "obj"
-  if(!is.element(ctype, c("avg","med", "obj"))){
-    errmsg <- paste0("'", ctype, "' is an invalid option for the centroid selection. The valid options are 'avg', 'med' or 'obj'.")
-    stop(errmsg)
-  }
+  if(!is.element(ctype, c("avg","med", "obj")))
+    stop(paste0("'", ctype, "' is an invalid option for the centroid selection. The valid options are 'avg', 'med' or 'obj'."))
   v <- matrix(nrow=k, ncol=p, 0)
   xrows <- c()
   if(ctype=="avg"){
     for(i in 1:k){
       xrows <- sample(n, r, replace=FALSE)
-      v[i,] <- apply(x[xrows,], 2, mean)
+      if(p > 1)
+        v[i,] <- apply(x[xrows,], 2, mean)
+      else
+        v[i,] <- mean(x[xrows,])
     }
   }
   if(ctype=="med"){
     for(i in 1:k){
       xrows <- sample(n, r, replace=FALSE)
-      v[i,] <- apply(x[xrows,], 2, median)
+      if(p > 1)
+        v[i,] <- apply(x[xrows,], 2, median)
+      else
+        v[i,] <- median(x[xrows,])
     }
   }
   if(ctype=="obj"){
     xrows <- c()
     for(i in 1:k){
       repeat{
-        sampled <- sample(1:n, r, replace=FALSE)
-        sampmean <- apply(x[sampled,], 2, mean)
+        sampled <- sample(1:n, r, replace=FALSE)     
+        if(p > 1)
+          sampmean <- apply(x[sampled,], 2, mean)
+        else
+          sampmean <- mean(x[sampled,])
         distx <- numeric(n)
         for(j in 1:n)
           distx[j] <- .sqeucdist(x[j,], sampmean) 
@@ -167,14 +166,14 @@ crsamp <- function(x, k, r, ctype){
         }
       }    
     }
-    v <- x[xrows,]
+    v <- as.matrix(x[xrows,])
   }
-  colnames(v) <- colnames(x)
   rownames(v) <- paste0("Cl.", 1:k)
+  colnames(v) <- colnames(x)
   result <- list()
     result$v <- v
     result$ctype <- ctype
-   result$call <- match.call()
+    result$call <- match.call()
   class(result) <- c("inaparc")
   return(result)
 }
@@ -182,18 +181,17 @@ crsamp <- function(x, k, r, ctype){
 firstk <- function(x, k){ 
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
+  n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", nrow(x), " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > n)
+    stop(paste0("Argument k should be between 1 and ", n, " for the data set being processed."))
   v <- matrix(nrow=k, ncol=ncol(x), x[1:k,])
   colnames(v) <- colnames(x)
   rownames(v) <- paste0("Cl.", 1:k)
@@ -208,19 +206,17 @@ firstk <- function(x, k){
 forgy <- function(x, k){
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
+  n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", nrow(x), " for the data set being processed.")
-    stop(errmsg)
-  }
-  n <- nrow(x); p <- ncol(x)
+  if(k < 1 || k > nrow(x))
+    stop(paste0("Argument k should be between 1 and ", n, " for the data set being processed."))
   v <- matrix(nrow=k, ncol=p, 0)
   cidx <- sample(rep(seq_len(k), each = ceiling(n/k)), size=n)
   for(i in 1:k)
@@ -239,19 +235,17 @@ forgy <- function(x, k){
 hartiganwong <- function(x, k){ 
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", n, " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > n)
+    stop(paste0("Argument k should be between 1 and ", n, " for the data set being processed."))
   v <- matrix(nrow=k, ncol=p, 0)
   xmean <- apply(x, 2, mean) 
   x <- cbind(x, rowSums(abs(x-xmean)))
@@ -273,20 +267,19 @@ hartiganwong <- function(x, k){
 inofrep <- function(x, k, sfidx, sfpm, binrule, nbins, tcmethod, tc){
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
+  n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Input argument k is missing")
   if(!is.numeric(k))
     stop("Input argument k must be a positive integer")
   else
     k <- as.integer(k)
-  if(k<1 || k > nrow(x)){
-    errmsg <- paste0("k should be between 1 and ", nrow(x), ".")
-    stop(errmsg)
-  }
+  if(k<1 || k > n)
+    stop(paste0("k should be between 1 and ", n, "."))
   if(missing(binrule) & !missing(nbins)) 
     binrule <- "usr"
   if(missing(binrule) & missing(nbins)) 
@@ -312,7 +305,6 @@ inofrep <- function(x, k, sfidx, sfpm, binrule, nbins, tcmethod, tc){
     if(tcmethod=="usr" & missing(tc))
       tc <- 1
   }
-  n <- nrow(x); p <- ncol(x)
   if(missing(sfidx)){
     npeaks <- 0
     for(j in 1:p){
@@ -330,10 +322,8 @@ inofrep <- function(x, k, sfidx, sfpm, binrule, nbins, tcmethod, tc){
   if(sfidx < 1 || sfidx > p)
     stop("The column index of selected feature cannot be less than 1 or greater than ", p, " for this data set" )
   nuniqx <- length(unique(x[,sfidx]))
-  if(k > nuniqx){
-    errmsg <- paste0("k should be less than ", nuniqx, " because there are only ", nuniqx, " distinct values of the selected feature for avoiding the coincided clusters.")
-    stop(errmsg)
-  }
+  if(k > nuniqx)
+    stop(paste0("k should be less than ", nuniqx, " because there are only ", nuniqx, " distinct values of the selected feature for avoiding the coincided clusters."))
   if(!missing(sfpm)){
     if(class(sfpm) == "data.frame") 
       sfpm <- as.matrix(sfpm)
@@ -356,15 +346,20 @@ inofrep <- function(x, k, sfidx, sfpm, binrule, nbins, tcmethod, tc){
     ridx <- which.min(abs(x[,sfidx] - sfpm[i,1]))
     xsampled <- c(xsampled, ridx)
   }
-  nsampled <- k - nsampled
-  if(nsampled > 0){
-    xremained <- x[-xsampled,]
-    ridx <- sample(nrow(xremained), nsampled, replace=FALSE)
-    xsampled <- c(xsampled, ridx)
+  if(k > nsampled){
+    g <- 1:n
+    xremained <- g[-xsampled]
+    xsampled <- c(xsampled, sample(xremained, k-nsampled, replace=FALSE))
   }
   v <- x[xsampled,]
-  colnames(v) <- colnames(x)
-  rownames(v) <- paste0("Cl.", 1:k)
+  if(p==1){
+    v <- as.matrix(v)
+    rownames(v) <- paste0("Cl.", 1:k)
+  } 
+  else if(k > 1){
+    colnames(v) <- colnames(x)
+    rownames(v) <- paste0("Cl.", 1:k)
+  }
   result <- list()
     result$v <- v
     result$sfidx <- sfidx
@@ -377,10 +372,10 @@ inofrep <- function(x, k, sfidx, sfpm, binrule, nbins, tcmethod, tc){
 inscsf <- function(x, k, sfidx, ctype){
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing k, number of clusters")
@@ -388,31 +383,27 @@ inscsf <- function(x, k, sfidx, ctype){
     stop("k must be a positive integer")
   else
     k <- as.integer(k)
-  if(k<1 || k > nrow(x)){
-    errmsg <- paste0("k should be between 1 and ", n, " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k<1 || k > nrow(x))
+    stop(paste0("k should be between 1 and ", n, " for the data set being processed."))
   if(!missing(sfidx)){
-    if(!is.numeric(sfidx)){
-      errmsg <- paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed.")
-      stop(errmsg)
-    }else{
+    if(!is.numeric(sfidx))
+      stop(paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed."))
+    else
       sfidx <- as.integer(sfidx)
-    }
-    if(sfidx<1 |sfidx>p){
-      errmsg <- paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed.")
-      stop(errmsg)
-    }
-  } else{
+   }else{
     sfidx <- 1
-    nuniqx <- length(unique(x[,1]))
-    for(j in 2:p){
-      if(length(unique(x[,j])) > nuniqx){
-        nuniqx <- length(unique(x[,j]))
-        sfidx <- j
+    if(p > 1){
+      nuniqx <- length(unique(x[,1]))
+      for(j in 2:p){
+        if(length(unique(x[,j])) > nuniqx){
+          nuniqx <- length(unique(x[,j]))
+          sfidx <- j
+        }
       }
     }
   }
+  if(sfidx < 1 |sfidx > p)
+    stop(paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed."))
   xuniques <- unique(x[,sfidx])
   modex <- xuniques[which.max(tabulate(match(x[,sfidx], xuniques)))]
   meanx <- mean(x[,sfidx])
@@ -425,33 +416,52 @@ inscsf <- function(x, k, sfidx, ctype){
       else 
         ctype <- "avg"
   }
-  if(!is.element(ctype, c("avg","med", "mod"))){
-    errmsg <- paste0("'", ctype, "' is an invalid option for the center selection. Enter 'avg', 'med' or 'mod' for type selection.")
-    stop(errmsg)
-  }
+  if(!is.element(ctype, c("avg","med", "mod")))
+    stop(paste0("'", ctype, "' is an invalid option for the center selection. Enter 'avg', 'med' or 'mod' for type selection."))
   if(ctype=="avg") center <- meanx
   if(ctype=="med") center <- medx
   if(ctype=="mod") center <- modex
   r1 <- (max(x[,sfidx])-center)/(k-1)/2
   r2 <- (center-min(x[,sfidx]))/(k-1)/2
   nuniqx <- length(unique(x[,sfidx]))
-  if(k > nuniqx){
-    errmsg <- paste0("For avoiding the coincided clusters, k should be less than ", nuniqx, " because there are only ", nuniqx, " distinct values of the selected feature.")
-    stop(errmsg)
-  }
+  if(k > nuniqx)
+    stop(paste0("For avoiding the coincided clusters, k should be less than ", nuniqx, " because there are only ", nuniqx, " distinct values of the selected feature."))
   v <- matrix(nrow=k, ncol=p, 0)
-  ridx <- which.min(abs(x[,sfidx] - center))
-  v[1,] <- x[ridx,]
-  for(i in 2:k){
-    x <- x[-ridx,]
-    if(i%%2==1) 
-      ridx <- which.min(abs(x[,sfidx] - (center + (i-1) * r1)))
-   else
-      ridx <- which.min(abs(x[,sfidx] - (center - (i-1) * r2)))
-   v[i,] <- x[ridx,] 
+  if(p > 1){
+    ridx <- which.min(abs(x[,sfidx] - center))
+    v[1,] <- x[ridx,]
+    if(k > 1){
+      for(i in 2:k){
+        x <- x[-ridx,]
+        if(i%%2==1) 
+          ridx <- which.min(abs(x[,sfidx] - (center + (i-1) * r1)))
+        else
+          ridx <- which.min(abs(x[,sfidx] - (center - (i-1) * r2)))
+        v[i,] <- x[ridx,] 
+      }
+    }
+  }else{
+    ridx <- which.min(abs(x - center))
+    v[1,] <- x[ridx]
+    if(k > 1){
+      for(i in 2:k){
+        x <- x[-ridx]
+        if(i%%2==1) 
+          ridx <- which.min(abs(x - (center + (i-1) * r1)))
+        else
+          ridx <- which.min(abs(x - (center - (i-1) * r2)))
+        v[i,] <- x[ridx] 
+      }
+    }
   }
-  colnames(v) <- colnames(x)
-  rownames(v) <- paste0("Cl.", 1:k)
+  if(p==1){
+    v <- as.matrix(v)
+    rownames(v) <- paste0("Cl.", 1:k)
+  } 
+  else if(k > 1){
+    colnames(v) <- colnames(x)
+    rownames(v) <- paste0("Cl.", 1:k)
+  }
   result <- list()
     result$v <- v
     result$sfidx <- sfidx
@@ -464,55 +474,69 @@ inscsf <- function(x, k, sfidx, ctype){
 insdev <- function(x, k, sfidx){
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing k, number of clusters")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k<1 || k > nrow(x)){
-    errmsg <- paste0("k should be between 1 and ", nrow(x), " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k<1 || k > n)
+    stop(paste0("k should be between 1 and ", nrow(x), " for the data set being processed."))
   if(!missing(sfidx)){
-    if(!is.numeric(sfidx)){
-      errmsg <- paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed.")
-      stop(errmsg)
-    }
-    else sfidx <- round(sfidx)
-    if(sfidx<1 |sfidx>p){
-      errmsg <- paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed.")
-      stop(errmsg)
-    }
+    if(!is.numeric(sfidx))
+      stop(paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed."))
+    else 
+      sfidx <- round(sfidx)
   }else{
-    cvx <- sqrt(var(x[,1]))/mean(x[,1])
     sfidx <- 1
-    for(j in 2:p){
-      if(sqrt(var(x[,j]))/mean(x[,j]) > cvx){
-        cvx <- sqrt(var(x[,j]))/mean(x[,j])
-        sfidx <- j
+    if(p > 1){
+      cvx <- sqrt(var(x[,1]))/mean(x[,1])
+      for(j in 2:p){
+        if(sqrt(var(x[,j]))/mean(x[,j]) > cvx){
+          cvx <- sqrt(var(x[,j]))/mean(x[,j])
+          sfidx <- j
+        }
       }
-    }
+    }  
   }
+  if(sfidx < 1 || sfidx > p)
+    stop(paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed."))
   v <- matrix(nrow=k, ncol=p, 0)
   ridx <- which.min(abs(x[,sfidx] - mean(x[,sfidx])))
   xinc <- sqrt(var(x[,sfidx]))/k/2
-  v[1,] <- x[ridx,] 
+  v[1,] <- x[ridx,]
   if(k > 1){
     for(i in 2:k){
-      x <- x[-ridx,]
-      if(i%%2==1) 
-        ridx <- which.min(abs(x[,sfidx] - (v[1,sfidx] + (i-1) * xinc)))
+      if(p > 1)
+        x <- x[-ridx,]
       else
-        ridx <- which.min(abs(x[,sfidx] - (v[1,sfidx] - i * xinc)))
-      v[i,] <- x[ridx,] 
+        x <- x[-ridx]
+      if(p > 1){
+        if(i%%2==1) 
+          ridx <- which.min(abs(x[,sfidx] - (v[1,sfidx] + (i-1) * xinc)))
+        else
+          ridx <- which.min(abs(x[,sfidx] - (v[1,sfidx] - i * xinc)))
+        v[i,] <- x[ridx,] 
+      }else{
+        if(i%%2==1) 
+          ridx <- which.min(abs(x - (v[1,sfidx] + (i-1) * xinc)))
+        else
+          ridx <- which.min(abs(x - (v[1,sfidx] - i * xinc)))
+        v[i,] <- x[ridx] 
+      }
     }
   }
-  colnames(v) <- colnames(x)
-  rownames(v) <- paste0("Cl.", 1:k)
+  if(p==1){
+    v <- as.matrix(v)
+    rownames(v) <- paste0("Cl.", 1:k)
+  } 
+  else if(k > 1){
+    colnames(v) <- colnames(x)
+    rownames(v) <- paste0("Cl.", 1:k)
+  }
   result <- list()
     result$v <- v
     result$sfidx <- sfidx
@@ -525,19 +549,17 @@ insdev <- function(x, k, sfidx){
 kkz <- function(x, k){
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", n, " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > nrow(x))
+    stop(paste0("Argument k should be between 1 and ", n, " for the data set being processed."))
   v <- matrix(nrow=k, ncol=p, 0)
   ix <- numeric(k); dx <- numeric(k)
   ridx <- k + 1
@@ -580,7 +602,8 @@ kkz <- function(x, k){
     xrows <- c(xrows, ix[which.max(dx)])
     ridx <- ridx + 1
   }
-  v <- x[xrows, 1:p] 
+  if(k > 1)
+    v <- as.matrix(x[xrows, 1:p]) 
   colnames(v) <- colnames(x[,1:p])
   rownames(v) <- paste0("Cl.", 1:k)
   result <- list()
@@ -594,19 +617,17 @@ kkz <- function(x, k){
 kmpp <- function(x, k){
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > n){
-    errmsg <- paste0("Argument k should be between 1 and ", n, " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > n)
+    stop(paste0("Argument k should be between 1 and ", n, " for the data set being processed."))
   v <- matrix(nrow=k, ncol=p, 0)
   xrows <- numeric(k) 
   distmat <- matrix(nrow=n, ncol=k-1, 0) 
@@ -623,9 +644,12 @@ kmpp <- function(x, k){
     }
     xrows[k] <- sample.int(n, 1, prob = prbx)
   }
-  v <- x[xrows,] 
-  colnames(v) <- colnames(x)
-  rownames(v) <- paste0("Cl.", 1:k)
+  v <- x[xrows, ]
+  if(k > 1){
+    v <- as.matrix(x[xrows, ])
+    colnames(v) <- colnames(x)
+    rownames(v) <- paste0("Cl.", 1:k)
+  }
   result <- list()
     result$v <- v
     result$ctype <- "obj"
@@ -637,25 +661,21 @@ kmpp <- function(x, k){
 ksegments <- function(x, k, ctype){ 
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", nrow(x), " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > nrow(x))
+    stop(paste0("Argument k should be between 1 and ", nrow(x), " for the data set being processed."))
   if(missing(ctype)) 
     ctype <- "avg"
-  if(!is.element(ctype, c("avg","med"))){
-    errmsg <- paste0("'", ctype, "' is an invalid option for the centroid selection. The valid options are 'avg' or 'med'.")
-    stop(errmsg)
-  }
+  if(!is.element(ctype, c("avg","med")))
+    stop(paste0("'", ctype, "' is an invalid option for the centroid selection. The valid options are 'avg' or 'med'."))
   v <- matrix(nrow=k, ncol=p, 0)
   ns <- floor(n/k)
   step <- 1
@@ -663,15 +683,21 @@ ksegments <- function(x, k, ctype){
     sridx <- step
     eridx <- sridx+ns-1
     if(ctype=="avg"){
-      if(ns >= 2)
-        v[i,] <- apply(x[sridx:eridx,], 2, mean)
-      else
+      if(ns >= 2){
+        if(p > 1)
+          v[i,] <- apply(x[sridx:eridx,], 2, mean)
+        else 
+          v[i,] <- mean(x[sridx:eridx,])
+      }else
         v[i,] <- x[sridx:eridx,]
     }
     else{
-       if(ns >= 2)
-        v[i,] <- apply(x[sridx:eridx,], 2, median)
-      else
+       if(ns >= 2){
+        if(p > 1)
+          v[i,] <- apply(x[sridx:eridx,], 2, median)
+        else 
+          v[i,] <- median(x[sridx:eridx,])
+      }else
         v[i,] <- x[sridx:eridx,]
     }
     step <- eridx + 1
@@ -689,38 +715,56 @@ ksegments <- function(x, k, ctype){
 ksteps <- function(x, k, ctype){ 
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > as.integer(sqrt(nrow(x)))){
-    errmsg <- paste0("Argument k should be between 1 and ", as.integer(sqrt(nrow(x))), " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > as.integer(sqrt(nrow(x))))
+    stop(paste0("Argument k should be between 1 and ", as.integer(sqrt(nrow(x))), " for the data set being processed."))
   if(missing(ctype)) 
     ctype <- "avg"
-  if(!is.element(ctype, c("avg","med"))){
-    errmsg <- paste0("'", ctype, "' is an invalid option for the centroid selection. The valid options are 'avg' or 'med'.")
-    stop(errmsg)
-  }
+  if(!is.element(ctype, c("avg","med")))
+    stop(paste0("'", ctype, "' is an invalid option for the centroid selection. The valid options are 'avg' or 'med'."))
   v <- matrix(nrow=k, ncol=p, 0)
   xrows <- c()
   for(i in 1:k){
     for(j in 1:k){
       xrows <- c(xrows, i+(j-1)*k)
-     }
-    if(ctype=="avg")
-      v[i,] <- apply(x[xrows,], 2, mean)
-    else
-      v[i,] <- apply(x[xrows,], 2, median)
+    }
+    if(ctype=="avg"){
+      if(p > 1){
+        if(k > 1)
+          v[i,] <- apply(x[xrows,], 2, mean)
+        else
+          v[i,] <- x[xrows,]
+      }
+      else 
+        v[i,] <- mean(x[xrows,])
+    }
+    if(ctype=="med"){
+      if(p > 1){
+        if(k > 1)
+          v[i,] <- apply(x[xrows,], 2, median)
+        else
+          v[i,] <- x[xrows,]
+      }
+      else 
+        v[i,] <- median(x[xrows,])
+    }
   }
-  colnames(v) <- colnames(x)
-  rownames(v) <- paste0("Cl.", 1:k)
+  if(p==1){
+    v <- as.matrix(v)
+    rownames(v) <- paste0("Cl.", 1:k)
+  } 
+  else if(k > 1){
+    colnames(v) <- colnames(x)
+    rownames(v) <- paste0("Cl.", 1:k)
+  }
   result <- list()
     result$v <- v
     result$ctype <- ctype
@@ -732,19 +776,17 @@ ksteps <- function(x, k, ctype){
 lastk <- function(x, k){ 
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", n, " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > nrow(x))
+    stop(paste0("Argument k should be between 1 and ", n, " for the data set being processed."))
   v <- matrix(nrow=k, ncol=p, x[(n-k+1):n,])
   colnames(v) <- colnames(x)
   rownames(v) <- paste0("Cl.", 1:k)
@@ -759,27 +801,23 @@ lastk <- function(x, k){
 lhsmaximin <- function(x, k, ncp){ 
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", n, " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > nrow(x))
+    stop(paste0("Argument k should be between 1 and ", n, " for the data set being processed."))
   if(missing(ncp))
     ncp <- 1
   if(!is.numeric(ncp))
     stop("Argument dup must be a positive integer")
-  if(ncp < 1 || ncp > k){
-    errmsg <- paste0("Argument ncp should be between 1 and ", k, ".")
-    stop(errmsg)
-  }
+  if(ncp < 1 || ncp > k)
+    stop(paste0("Argument ncp should be between 1 and ", k, "."))
   v <- matrix(nrow=k, ncol=p, 0)
   xmean <- numeric(p)
   xsd <- numeric(p)
@@ -790,8 +828,14 @@ lhsmaximin <- function(x, k, ncp){
   z <- lhs::maximinLHS(k, p, dup=ncp)
   for(j in 1:p)
     v[,j] <- qnorm(z[,j], mean=xmean[j], sd=xsd[j])
-  colnames(v) <- colnames(x)
-  rownames(v) <- paste0("Cl.", 1:k)
+  if(p==1){
+    v <- as.matrix(v)
+    rownames(v) <- paste0("Cl.", 1:k)
+  } 
+  else if(k > 1){
+    colnames(v) <- colnames(x)
+    rownames(v) <- paste0("Cl.", 1:k)
+  }
   result <- list()
     result$v <- v
     result$ctype <- "obj"
@@ -803,19 +847,17 @@ lhsmaximin <- function(x, k, ncp){
 lhsrandom <- function(x, k){ 
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", n, " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > nrow(x))
+    stop(paste0("Argument k should be between 1 and ", n, " for the data set being processed."))
   v <- matrix(nrow=k, ncol=p, 0)
   xmean <- numeric(p)
   xsd <- numeric(p)
@@ -826,8 +868,14 @@ lhsrandom <- function(x, k){
   z <- lhs::randomLHS(k, p)
   for(j in 1:p)
     v[,j] <- qnorm(z[,j], mean=xmean[j], sd=xsd[j])
-  colnames(v) <- colnames(x)
-  rownames(v) <- paste0("Cl.", 1:k)
+  if(p==1){
+    v <- as.matrix(v)
+    rownames(v) <- paste0("Cl.", 1:k)
+  } 
+  else if(k > 1){
+    colnames(v) <- colnames(x)
+    rownames(v) <- paste0("Cl.", 1:k)
+  }
   result <- list()
     result$v <- v
     result$ctype <- "obj"
@@ -839,25 +887,22 @@ lhsrandom <- function(x, k){
 maximin <- function(x, k){
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", n, " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > n)
+    stop(paste0("Argument k should be between 1 and ", n, " for the data set being processed."))
   v <- matrix(nrow=k, ncol=p, 0)
   ix <- numeric(k); dx <- numeric(k)
   ridx <- k + 1
-  if(k == n){
+  if(k == n)
     xrows <- 1:k
-  }
   else{
     xrows <-  sample(n, 1)
     v[1,] <- x[xrows,]
@@ -891,8 +936,14 @@ maximin <- function(x, k){
     ridx <- ridx + 1
   }
   v <- x[xrows, 1:p] 
-  colnames(v) <- colnames(x[,1:p])
-  rownames(v) <- paste0("Cl.", 1:k)
+  if(p==1){
+    v <- as.matrix(v)
+    rownames(v) <- paste0("Cl.", 1:k)
+  } 
+  else if(k > 1){
+    colnames(v) <- colnames(x[,1:p])
+    rownames(v) <- paste0("Cl.", 1:k)
+  }
   result <- list()
     result$v <- v
     result$ctype <- "obj"
@@ -904,19 +955,17 @@ maximin <- function(x, k){
 mscseek <- function(x, k, tv){
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", n, " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > nrow(x))
+    stop(paste0("Argument k should be between 1 and ", n, " for the data set being processed."))
   if(missing(tv))
     tv = "cd1"
   if(!is.numeric(tv)){
@@ -974,8 +1023,14 @@ mscseek <- function(x, k, tv){
     i <- i + 1
   }
   v <- x[xrows, 1:p] 
-  colnames(v) <- colnames(x[,1:p])
-  rownames(v) <- paste0("Cl.", 1:nrow(v))
+  if(p==1){
+    v <- as.matrix(v)
+    rownames(v) <- paste0("Cl.", 1:k)
+  } 
+  else if(k > 1){
+    colnames(v) <- colnames(x[,1:p])
+    rownames(v) <- paste0("Cl.", 1:k)
+  }
   result <- list()
     result$v <- v
     result$ctype <- "obj"
@@ -987,22 +1042,26 @@ mscseek <- function(x, k, tv){
 rsamp <- function(x, k){
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", n, " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > nrow(x))
+    stop(paste0("Argument k should be between 1 and ", n, " for the data set being processed."))
   v <- x[sample(1:n, k, replace=FALSE),]  
-  colnames(v) <- colnames(x)
-  rownames(v) <- paste0("Cl.", 1:k)
+  if(p==1){
+    v <- as.matrix(v)
+    rownames(v) <- paste0("Cl.", 1:k)
+  } 
+  else if(k > 1){
+    colnames(v) <- colnames(x[,1:p])
+    rownames(v) <- paste0("Cl.", 1:k)
+  }
   result <- list()
     result$v <- v
     result$ctype <- "obj"
@@ -1014,19 +1073,17 @@ rsamp <- function(x, k){
 rsegment <- function(x, k){ 
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", n, " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > nrow(x))
+    stop(paste0("Argument k should be between 1 and ", n, " for the data set being processed."))
   v <- matrix(nrow=k, ncol=p, 0)
   if((n-k) == 0)
     sridx <- 1
@@ -1034,8 +1091,14 @@ rsegment <- function(x, k){
     sridx <- sample(1:(n-k), 1)
   eridx <- sridx+k-1
   v <- x[sridx:eridx,]
-  colnames(v) <- colnames(x)
-  rownames(v) <- paste0("Cl.", 1:k)
+  if(p==1){
+    v <- as.matrix(v)
+    rownames(v) <- paste0("Cl.", 1:k)
+  } 
+  else if(k > 1){
+    colnames(v) <- colnames(x[,1:p])
+    rownames(v) <- paste0("Cl.", 1:k)
+  }
   result <- list()
     result$v <- v
     result$ctype <- "obj"
@@ -1047,19 +1110,17 @@ rsegment <- function(x, k){
 scseek <- function(x, k, tv){
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", n, " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > n)
+    stop(paste0("Argument k should be between 1 and ", n, " for the data set being processed."))
   if(missing(tv))
     tv = "md"
   if(!is.numeric(tv)){
@@ -1108,8 +1169,14 @@ scseek <- function(x, k, tv){
     i <- i + 1
   }
   v <- x[xrows, 1:p] 
-  colnames(v) <- colnames(x[,1:p])
-  rownames(v) <- paste0("Cl.", 1:k)
+  if(p==1){
+    v <- as.matrix(v)
+    rownames(v) <- paste0("Cl.", 1:nrow(v))
+  } 
+  else if(k > 1){
+    colnames(v) <- colnames(x[,1:p])
+    rownames(v) <- paste0("Cl.", 1:nrow(v))
+  }
   result <- list()
     result$v <- v
     result$ctype <- "obj"
@@ -1121,37 +1188,35 @@ scseek <- function(x, k, tv){
 scseek2 <- function(x, k, sfidx, tv){
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", n, " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > n)
+    stop(paste0("Argument k should be between 1 and ", n, " for the data set being processed."))
   if(!missing(sfidx)){
-    if(!is.numeric(sfidx)){
-      errmsg <- paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed.")
-      stop(errmsg)
-    }
-    else sfidx <- round(sfidx)
-    if(sfidx<1 |sfidx>p){
-      errmsg <- paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed.")
-      stop(errmsg)
-    }
+    if(!is.numeric(sfidx))
+      stop(paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed."))
+    else 
+      sfidx <- round(sfidx)
+    if((sfidx < 1) || (sfidx > p))
+      stop(paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed."))
   }else{
-    cvx <- sqrt(var(x[,1]))/mean(x[,1])
-    for(j in 2:p){
-      if(sqrt(var(x[,j]))/mean(x[,j]) > cvx){
-        cvx <- sqrt(var(x[,j]))/mean(x[,j])
-        sfidx <- j
+    sfidx <- 1
+    if(p > 1){
+      cvx <- sqrt(var(x[,1]))/mean(x[,1])
+      for(j in 2:p){
+        if(sqrt(var(x[,j]))/mean(x[,j]) > cvx){
+          cvx <- sqrt(var(x[,j]))/mean(x[,j])
+          sfidx <- j
+        } 
       }
-    }
+    } 
   }
   if(missing(tv))
     tv = "cd1"
@@ -1203,8 +1268,14 @@ scseek2 <- function(x, k, sfidx, tv){
     i <- i + 1
   }
   v <- x[xrows, 1:p] 
-  colnames(v) <- colnames(x[,1:p])
-  rownames(v) <- paste0("Cl.", 1:nrow(v))
+  if(p==1){
+    v <- as.matrix(x[xrows, 1:p])
+    rownames(v) <- paste0("Cl.", 1:nrow(v))
+  } 
+  else if(k > 1){
+    colnames(v) <- colnames(x[,1:p])
+    rownames(v) <- paste0("Cl.", 1:nrow(v))
+  }
   result <- list()
     result$v <- v
     result$sfidx <- sfidx
@@ -1217,16 +1288,16 @@ scseek2 <- function(x, k, sfidx, tv){
 spaeth <- function(x, k){
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
+  if(k < 1 || k > n){
     errmsg <- paste0("Argument k should be between 1 and ", n, " for the data set being processed.")
     stop(errmsg)
   }
@@ -1250,20 +1321,21 @@ spaeth <- function(x, k){
 ssamp <- function(x, k){
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
+  if(k < 1 || k > n){
     errmsg <- paste0("Argument k should be between 1 and ", n, " for the data set being processed.")
     stop(errmsg)
   }
   v <- matrix(nrow=k, ncol=p, 0)
+  colnames(v) <- colnames(x)
   xinc <- floor(n/k)
   rid1 <- runif(1, 1:(xinc))
   xrows <- c()
@@ -1272,8 +1344,10 @@ ssamp <- function(x, k){
     xrows <- c(xrows, ridx)
   }
   v <- x[xrows,]
-  colnames(v) <- colnames(x)
-  rownames(v) <- paste0("Cl.", 1:k)
+  if(k > 1){
+    v <- as.matrix(x[xrows,])
+    rownames(v) <- paste0("Cl.", 1:k)
+  }
   result <- list()
     result$v <- v
     result$ctype <- "obj"
@@ -1285,16 +1359,16 @@ ssamp <- function(x, k){
 topbottom <- function(x, k){ 
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
+  if(k < 1 || k > n){
     errmsg <- paste0("Argument k should be between 1 and ", n, " for the data set being processed.")
     stop(errmsg)
   }
@@ -1323,54 +1397,51 @@ topbottom <- function(x, k){
 uniquek <- function(x, k, sfidx){ 
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
-    errmsg <- paste0("Argument k should be between 1 and ", n, " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > n)
+    stop(paste0("Argument k should be between 1 and ", n, " for the data set being processed."))
   if(!missing(sfidx)){
-    if(!is.numeric(sfidx)){
-      errmsg <- paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed.")
-      stop(errmsg)
-    }
-    else sfidx <- round(sfidx)
-    if(sfidx<1 |sfidx>p){
-      errmsg <- paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed.")
-      stop(errmsg)
-    }
-  } else{
+    if(!is.numeric(sfidx))
+      stop(paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed."))
+    else
+      sfidx <- round(sfidx)
+    if(sfidx < 1 ||sfidx > p)
+      stop(paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed."))
+  }else{
     sfidx <- 1
     nuniqx <- length(unique(x[,1]))
-    for(j in 2:p){
-      if(length(unique(x[,j])) > nuniqx){
-        nuniqx <- length(unique(x[,j]))
-        sfidx <- j
+    if(p > 1){
+      for(j in 2:p){
+        if(length(unique(x[,j])) > nuniqx){
+          nuniqx <- length(unique(x[,j]))
+          sfidx <- j
+        }
       }
     }
   }  
   v <- matrix(nrow=k, ncol=p, 0)
+  colnames(v) <- colnames(x)
+  rownames(v) <- paste0("Cl.", 1:k)
   xrows <- c()
   uniqx <- unique(x[,sfidx])
-  if(k < 1 || k > length(uniqx)){
-    errmsg <- paste0("k should be an integer between 1 and ", length(uniqx), " for the selected feature.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > length(uniqx))
+    stop(paste0("k should be an integer between 1 and ", length(uniqx), " for the selected feature."))
   uniqx <- sample(uniqx, k, replace=FALSE)
   for(i in 1:k){
     ridx <- which(x[,sfidx] == uniqx[i])[1]
     xrows <- c(xrows, ridx)
   }
   v <- x[xrows,]
-  colnames(v) <- colnames(x)
-  rownames(v) <- paste0("Cl.", 1:k)
+  if(k > 1)
+    v <- as.matrix(x[xrows,])
   result <- list()
     result$v <- v
     result$ctype <- "obj"
@@ -1382,16 +1453,16 @@ uniquek <- function(x, k, sfidx){
 ursamp <- function(x, k){
   if(missing(x)) 
     stop("Missing data set")
-  if(class(x) == "data.frame") 
+  if(is.vector(x) || is.data.frame(x))
     x <- as.matrix(x)
-  if(class(x) != "matrix") 
-     stop("Data set must be a numeric data frame or matrix")
+  if(!is.matrix(x)) 
+    stop("Data set must be a numeric vector, data frame or matrix")
   n <- nrow(x); p <- ncol(x)
   if(missing(k))
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > nrow(x)){
+  if(k < 1 || k > n){
     errmsg <- paste0("Argument k should be between 1 and ", n, " for the data set being processed.")
     stop(errmsg)
   }
@@ -1422,10 +1493,8 @@ imembrand <- function(n, k, mtype, numseed){
     stop("Argument k must be a positive integer")
   if(missing(mtype))
     mtype <- "f1"
-  if(!is.element(mtype, c("f1","f2","f3","h"))){
-    errmsg <- paste0("Invalid type ", mtype, ". The valid options are 'f1', 'f2' 'f3' and 'h'.")
-    stop(errmsg)
-  }
+  if(!is.element(mtype, c("f1","f2","f3","h")))
+    stop(paste0("Invalid type ", mtype, ". The valid options are 'f1', 'f2' 'f3' and 'h'."))
   if(!missing(numseed)){
     if(!is.numeric(numseed))
       stop("Argument seed number should be a number")
@@ -1445,11 +1514,11 @@ imembrand <- function(n, k, mtype, numseed){
   }
   if(mtype=="f2"){
     for(i in 1:n){
-      remain = 1.0
+      remain = 100.0
       idx <- c(1:k)
       while(length(idx) >= 2){
         j <- sample(idx, 1)
-        samp <- runif(1, 0, remain)
+        samp <- sample(0:remain, 1)
         u[i, j] <- samp
         remain <- remain - samp
         idx <- idx[!idx == j] 
@@ -1457,13 +1526,15 @@ imembrand <- function(n, k, mtype, numseed){
       u[i, idx[1]] <- remain
     }
     u <- u/apply(u, 1, sum)
+    if(any(rowSums(u) != 1))
+      u[,1] <- u[,1] + (1-rowSums(u)) 
   }
   if(mtype=="f3"){
     for(i in 1:n){
-      remain <- 1 
+      remain <- 100.0 
       for(j in 1:k) {
-        if(remain <= 1){
-          samp <- runif(1, 0, 1)
+        if(remain <= 100.0){
+          samp <- sample(n, 1)
           if(samp <= remain){
             if(j==k)
               samp <- remain
@@ -1481,14 +1552,16 @@ imembrand <- function(n, k, mtype, numseed){
       }
     }
     u <- u/apply(u, 1, sum)
+    if(any(rowSums(u) != 1))
+      u[,1] <- u[,1] + (1-rowSums(u)) 
   }
   if(mtype=="h"){
     for(i in 1:n){
-      if(i < k)
+      if(i <= k)
         j <- i
       else
         j <- sample(k, 1)
-      u[i, j] <- 1.0
+      u[i, j] <- 1
     }
   }
   result <- list()
@@ -1507,28 +1580,22 @@ imembones <- function(n, k, mtype="hrc", numseed){
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > n){
-    errmsg <- paste0("k should be an integer between 1 and ", n, ".")
-    stop(errmsg)
-  }
+  if(k < 1 || k > n)
+    stop(paste0("k should be an integer between 1 and ", n, "."))
   if(!missing(numseed)){
     if(!is.numeric(numseed))
       stop("Argument seed number should be a number")
     set.seed(numseed)
   }
-  if(!is.element(mtype, c("hfc","hlc", "hrc"))){
-    errmsg <- paste0("Invalid initialization type ", mtype, ". Available options are 'hfc', 'hlc' and 'hrc'")
-    stop(errmsg)
-  }
+  if(!is.element(mtype, c("hfc","hlc", "hrc")))
+    stop(paste0("Invalid initialization type ", mtype, ". Available options are 'hfc', 'hlc' and 'hrc'"))
   u <- matrix(nrow=n, ncol=k, 0)
   colnames(u) <- paste0("Cl.", 1:k)
   rownames(u) <- 1:n
-  if(mtype=="hfc"){
+  if(mtype=="hfc")
     u[,1] <- 1.0
-  }
-  if(mtype=="hlc"){
+  if(mtype=="hlc")
     u[,k] <- 1.0
-  }
   if(mtype=="hrc"){
     cidx <- runif(1,1,k)
     u[,cidx] <- 1.0
@@ -1556,23 +1623,17 @@ imembucr <- function(x, k, mtype="f", sfidx){
     stop("Missing input argument k")
   if(!is.numeric(k))
     stop("Argument k must be a positive integer")
-  if(k < 1 || k > n){
-    errmsg <- paste0("k should be an integer between 1 and ", n, " for the data set being processed.")
-    stop(errmsg)
-  }
+  if(k < 1 || k > n)
+    stop(paste0("k should be an integer between 1 and ", n, " for the data set being processed."))
   if(!mtype %in% c("f", "h")) 
     stop("Invalid membership type. The valid membership types are 'f' anf 'h'.")
   if(!missing(sfidx)){
-    if(!is.numeric(sfidx)){
-      errmsg <- paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed.")
-      stop(errmsg)
-    }
+    if(!is.numeric(sfidx))
+      stop(paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed."))
     else 
       sfidx <- round(sfidx)
-    if(sfidx<1 |sfidx>p){
-      errmsg <- paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed.")
-      stop(errmsg)
-    }
+    if(sfidx < 1 |sfidx > p)
+      stop(paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed."))
   }else{
     cvx <- sqrt(var(x[,1]))/mean(x[,1])
     for(j in 2:p){
@@ -1621,6 +1682,23 @@ imembucr <- function(x, k, mtype="f", sfidx){
 
 is.inaparc <- function(x){
   return(class(x)=="inaparc")
+}
+
+get.algorithms <- function(atype="prototype"){
+  atype <- match.arg(atype, c("prototype", "membership"))
+  if(atype=="prototype"){
+    algonames <- vector(mode = "character", length = 27)
+    algonames <- c("aldaoud", "ballhall", "crsamp", "firstk", "forgy", "hartiganwong", 
+                   "inofrep", "inscsf", "insdev", "kkz", "kmpp", "ksegments", "ksteps",
+                   "lastk", "lhsmaximin", "lhsrandom", "maximin", "mscseek", "rsamp",
+                   "rsegment", "scseek", "scseek2", "spaeth", "ssamp", "topbottom", 
+                   "uniquek", "ursamp")
+  }
+  if(atype=="membership"){
+    algonames <- vector(mode = "character", length = 3)
+    algonames <- c("imembones", "imembrand", "imembucr")
+  }
+  return(algonames)
 }
 
 .sqeucdist <- function(a, b){

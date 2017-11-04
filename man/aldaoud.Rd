@@ -11,7 +11,7 @@ aldaoud(x, k)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer specifying the number of clusters.}
 }
 
@@ -31,9 +31,9 @@ Zeynel Cebeci, Cagatay Cebeci
 }
 
 \references{
-Al-Daoud, M.B. (2005). A new algorithm for cluster initialization, in \emph{Proc. of 2nd World Enformatika Conf.}, pp.74-76. <http://waset.org/publications/7590/a-new-algorithm-for-cluster-initialization>
+Al-Daoud, M.B. (2005). A new algorithm for cluster initialization, in \emph{Proc. of 2\emph{nd} World Enformatika Conf.}, pp.74-76.
 
-Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. <arXiv:https://arxiv.org/pdf/1209.1960.pdf>
+Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. arXiv:\url{https://arxiv.org/pdf/1209.1960.pdf}
 }
 
 \seealso{
@@ -79,4 +79,4 @@ print(v)
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}

@@ -4,14 +4,14 @@
 Initialization of cluster prototypes using the modified SCS algorithm
 }
 \description{
-Initializes the cluster prototypes matrix using a modified version of the Simple Cluster Seeking (SCS) algorithm proposed by Tou & Gonzales(1974). While SCS uses a fixed threshold distance value \var{T} for selecting all candidates of clusters, modified SCS recomputes \var{T} with the average Euclidean distances between the previously determined prototypes. This adjustment makes possible to select more cluster prototypes when compared to SCS.
+Initializes the cluster prototypes matrix using a modified version of the Simple Cluster Seeking (SCS) algorithm proposed by Tou & Gonzales(1974). While SCS uses a fixed threshold distance value \var{T} for selecting all candidates of clusters, the modified SCS recomputes \var{T} with the average Euclidean distances between the previously determined prototypes. This adjustment makes possible to select more cluster prototypes when compared to SCS.
 }
 \usage{
 mscseek(x, k, tv)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer for the number of clusters.}
   \item{tv}{a number to be used as the threshold distance which is directly input by the user. Also it is possible to compute \var{T}, a threshold distance value with the following options of \code{tv} argument:
   \itemize{
@@ -37,7 +37,7 @@ This is a modification of the Simple Cluster Seeking (SCS) algorithm (Tou & Gonz
 Zeynel Cebeci, Cagatay Cebeci
 }
 \references{
-Tou, J.T. & Gonzalez,R.C. (1974). \emph{Pattern Recognition Principles}. Addison-Wesley, Reading, MA. <ISBN:9780201075861>
+Tou, J.T. & Gonzalez, R.C. (1974). \emph{Pattern Recognition Principles}. Addison-Wesley, Reading, MA. <ISBN:9780201075861>
 }
 \seealso{
  \code{\link{aldaoud}},
@@ -83,8 +83,8 @@ print(v2)
 
 \concept{initialization of cluster prototypes}
 \concept{prototype-based clustering}
-\concept{partitional clustering}
+\concept{partitioning clustering}
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}

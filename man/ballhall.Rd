@@ -11,7 +11,7 @@ ballhall(x, k, tv)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer specifying the number of clusters.}
   \item{tv}{a number to be used as \var{T}, a threshold distance value. It is directly input by the user. Also it is possible to compute \var{T} with the following options of \code{tv} argument:
   \itemize{
@@ -35,7 +35,7 @@ In the Ball and Hall's algorithm (Ball & Hall, 1967), the center of gravity of d
 \references{
 Ball, G.H. & Hall, D.J. (1967). A clustering technique for summarizing multivariate data, \emph{Systems Res. & Behavioral Sci.}, 12 (2): 153-155.
 
-Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. <arXiv:https://arxiv.org/pdf/1209.1960.pdf>
+Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. arXiv:\url{https://arxiv.org/pdf/1209.1960.pdf}
 }
 
 \author{
@@ -87,4 +87,4 @@ print(v2)
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}

@@ -11,7 +11,7 @@ hartiganwong(x, k)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer specifying the number of clusters.}
 }
 
@@ -30,9 +30,9 @@ Zeynel Cebeci, Cagatay Cebeci
 }
 
 \references{
-Hartigan, J.A. & Wong, W.A., (1979). Algorithm AS 136: A K-means clustering algorithm, \emph{J of the Royal Statistical Society}, C 28 (1): 100-108. \cr <https://www.labri.fr/perso/bpinaud/userfiles/downloads/hartigan_1979_kmeans.pdf>
+Hartigan, J.A. & Wong, W.A., (1979). Algorithm AS 136: A K-means clustering algorithm, \emph{J of the Royal Statistical Society}, C 28 (1): 100-108.  url:\url{https://www.labri.fr/perso/bpinaud/userfiles/downloads/hartigan_1979_kmeans.pdf}
 
-Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. <arXiv:https://arxiv.org/pdf/1209.1960.pdf>
+Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. arXiv:\url{https://arxiv.org/pdf/1209.1960.pdf}
 }
 
 \seealso{
@@ -74,8 +74,8 @@ print(v)
 \concept{initialization of cluster prototypes}
 \concept{sampling for prototype selection}
 \concept{prototype-based clustering}
-\concept{partitional clustering}
+\concept{partitioning clustering}
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}

@@ -11,7 +11,7 @@ kmpp(x, k)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer specifying the number of clusters.}
 }
 
@@ -28,9 +28,9 @@ The function \code{kmpp} is an implementation of the initialization algorithm of
 }
 
 \references{
-Arthur, D. & Vassilvitskii. S. (2007). K-means++: The advantages of careful seeding, in \emph{Proc. of the 18th Annual ACM-SIAM Symposium on Discrete Algorithms}, p. 1027-1035. \cr <http://ilpubs.stanford.edu:8090/778/1/2006-13.pdf>
+Arthur, D. & Vassilvitskii. S. (2007). K-means++: The advantages of careful seeding, in \emph{Proc. of the 18th Annual ACM-SIAM Symposium on Discrete Algorithms}, p. 1027-1035. url:\url{http://ilpubs.stanford.edu:8090/778/1/2006-13.pdf}
 
-M. Sugiyama, \sQuote{mahito-sugiyama/k-meansp2.R},\cr <https://gist.github.com/mahito-sugiyama/ef54a3b17fff4629f106>
+M. Sugiyama, \sQuote{mahito-sugiyama/k-meansp2.R}. url:\url{https://gist.github.com/mahito-sugiyama/ef54a3b17fff4629f106}
 }
 
 \author{
@@ -76,8 +76,8 @@ print(v)
 \concept{k-means++ algorithm}
 \concept{initialization of cluster prototypes}
 \concept{prototype-based clustering}
-\concept{partitional clustering}
+\concept{partitioning clustering}
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}

@@ -11,7 +11,7 @@ crsamp(x, k, r, ctype)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer specifying the number of clusters.}
   \item{r}{an integer for the number of objects to be sampled from the data set. If missing, the default value is 2.}
   \item{ctype}{a string for the type of centroids to be computed. The options are \sQuote{avg} for average, \sQuote{med} for median or \sQuote{obj} for the object nearest to the average. The default is \sQuote{obj}.}
@@ -76,4 +76,4 @@ print(v)
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}

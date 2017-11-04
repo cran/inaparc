@@ -11,7 +11,7 @@ lhsrandom(x, k)
 }
 
 \arguments{
-  \item{x}{a numeric data frame or matrix.}
+  \item{x}{a numeric vector, data frame or matrix.}
   \item{k}{an integer for specifying the number of clusters.}
 }
 
@@ -32,9 +32,9 @@ Zeynel Cebeci, Cagatay Cebeci
 }
 
 \references{
-Borgelt, C., (2005). \emph{Prototype-based classification and clustering}. Habilitationsschrift zur Erlangung der Venia legendi fuer Informatik, vorgelegt der Fakultaet fuer Informatik der Otto-von-Guericke-Universitaet Magdeburg, Magdeburg, 22 June 2005. <http://www.borgelt.net/habil/pbcc.pdf>
+Borgelt, C., (2005). \emph{Prototype-based classification and clustering}. Habilitationsschrift zur Erlangung der Venia legendi fuer Informatik, vorgelegt der Fakultaet fuer Informatik der Otto-von-Guericke-Universitaet Magdeburg, Magdeburg, 22 June 2005. url:\url{http://www.borgelt.net/habil/pbcc.pdf}
 
-Carnell, R., (2016). lhs: Latin Hypercube Samples. R package version 0.14. <https://CRAN.R-project.org/package=lhs>
+Carnell, R., (2016). lhs: Latin Hypercube Samples. R package version 0.14. \url{https://CRAN.R-project.org/package=lhs}
 }
 
 \seealso{
@@ -77,8 +77,8 @@ print(v)
 \concept{initialization of cluster prototypes}
 \concept{sampling for prototype selection}
 \concept{prototype-based clustering}
-\concept{partitional clustering}
+\concept{partitioning clustering}
 \concept{cluster analysis}
 \concept{unsupervised learning}
 
-\keyword{Statistics|cluster}
+\keyword{cluster}
