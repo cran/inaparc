@@ -17,7 +17,7 @@ In fuzzy and possibilistic clustering, an object is a member of all clusters in 
 \deqn{\sum\limits_{j=1}^k u_{ij}=1; 1\le i \le n}{\sum\limits_{j=1}^k u_{ij}=1; 1\le i \le n}
 \deqn{0<\sum\limits_{i=1}^n u_{ij} < n ; 1\le j \le k}{0<\sum\limits_{i=1}^n u_{ij} < n ; 1\le j \le k}
 
-Membership degrees matrices are usually initialized with the techniques based on random number generating as the function \code{\link{imembrand}} does. In addition to these common techiques, a novel technique using the information from synthetically produced classes over a selected feature is provided in the package \sQuote{\pkg{inaparc}}. The novel technique which is implemented in \code{\link{imembucr}} may contribute to the fast convergence of the clustering algorithms when compared to the random sampling based techniques. The package also serves the functions for building hard or crisp membership degrees which can be used for testing purposes.
+Membership degrees matrices are usually initialized with the techniques based on random number generating as the function \code{\link{imembrand}} does. In addition to these common techiques, a novel technique using the information from synthetically produced classes over a selected feature is provided in the package \sQuote{\pkg{inaparc}}. The novel technique which is implemented in \code{\link{figen}} may contribute to the fast convergence of the clustering algorithms when compared to the random sampling based techniques. The package also serves the functions for building hard or crisp membership degrees which can be used for testing purposes.
 }
 
 \author{Zeynel Cebeci, Cagatay Cebeci}
@@ -26,6 +26,10 @@ Membership degrees matrices are usually initialized with the techniques based on
 Bezdek J.C. (1981). Pattern recognition with fuzzy objective function algorithms. Plenum, NY, 256 p. <ISBN:0306406713>
 
 Borgelt, C., (2005). \emph{Prototype-based classification and clustering}. Habilitationsschrift zur Erlangung der Venia legendi fuer Informatik, vorgelegt der Fakultaet fuer Informatik der Otto-von-Guericke-Universitaet Magdeburg, Magdeburg, 22 June 2005. url:\url{http://www.borgelt.net/habil/pbcc.pdf}
+
+Cebeci, Z. (2018). Initialization of Membership Degree Matrix for Fast Convergence of Fuzzy C-Means Clustering", In Proc. of \emph{2018 International Conference on Artificial Intelligence and Data Processing (IDAP)}, IEEE, Sep. 2018, pp. 1-5., doi: \href{https:/doi.org/10.1109/IDAP.2018.8620920}{10.1109/IDAP.2018.8620920}
+
+Cebeci, Z., Sahin, M. & Cebeci, C. (2018). Data dependent techniques for initialization of cluster prototypes in partitioning cluster analysis. In Proc. of \emph{4th International Conference on Engineering and Natural Science}, Kiev, Ukraine, May 2018. pp. 12-22. \href{https://www.researchgate.net/publication/327445914_Data_Dependent_Techniques_for_Initialization_of_Cluster_Prototypes_in_Partitioning_Cluster_Analysis}{Retrieved from ResearchGate}
 
 Rokah, L. & Maimon, O. (2005). Clustering methods. In \emph{Data Mining and Knowledge Discovery Handbook (ed. O. Maimon)}, Springer US. pp. 321-352. url:\url{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.149.9326&rep=rep1&type=pdf}
 
@@ -45,7 +49,7 @@ Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficie
  \code{\link{hartiganwong}},
  \code{\link{imembones}},
  \code{\link{imembrand}},
- \code{\link{imembucr}},
+ \code{\link{figen}},
  \code{\link{inofrep}},
  \code{\link{inscsf}},
  \code{\link{insdev}},

@@ -50,6 +50,8 @@ On the other hand, \eqn{R_2}{R_2} is used to calculate the prototypes for the od
 
 \references{
 Ball, G.H. & Hall, D.J. (1967). A clustering technique for summarizing multivariate data, \emph{Systems Res. & Behavioral Sci.}, 12 (2): 153-155.
+
+Cebeci, Z., Sahin, M. & Cebeci, C. (2018). Data dependent techniques for initialization of cluster prototypes in partitioning cluster analysis. In Proc. of \emph{4th International Conference on Engineering and Natural Science}, Kiev, Ukraine, May 2018. pp. 12-22. \href{https://www.researchgate.net/publication/327445914_Data_Dependent_Techniques_for_Initialization_of_Cluster_Prototypes_in_Partitioning_Cluster_Analysis}{Retrieved from ResearchGate}
 }
 
 \author{

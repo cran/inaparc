@@ -325,9 +325,9 @@ inofrep <- function(x, k, sfidx, sfpm, binrule, nbins, tcmethod, tc){
   if(k > nuniqx)
     stop(paste0("k should be less than ", nuniqx, " because there are only ", nuniqx, " distinct values of the selected feature for avoiding the coincided clusters."))
   if(!missing(sfpm)){
-    if(class(sfpm) == "data.frame") 
+    if(is(sfpm, "data.frame"))
       sfpm <- as.matrix(sfpm)
-    if(class(sfpm) != "matrix") 
+    if(!is(sfpm, "matrix")) 
      stop("Peak matrix of the selected feature must be a numeric data frame or matrix")
   } 
   else{
@@ -1607,15 +1607,14 @@ imembones <- function(n, k, mtype="hrc", numseed){
   class(result) <- c("inaparc")
   return(result)
 }
-
-imembucr <- function(x, k, mtype="f", sfidx){
+figen <- function(x, k, mtype="f", sfidx){
   if(missing(x)){
     stop("Missing data set")
   } 
   else{
-    if(class(x) == "data.frame") 
+    if(is(x,"data.frame"))
       x <- as.matrix(x)
-    if(class(x) != "matrix") 
+    if(!is(x, "matrix"))
       stop("Data set must be a numeric data frame or matrix")
   }
   n <- nrow(x); p <- ncol(x)
@@ -1635,10 +1634,18 @@ imembucr <- function(x, k, mtype="f", sfidx){
     if(sfidx < 1 |sfidx > p)
       stop(paste0("Selected feature index must be an integer between 1 and ", p, " for the data set being processed."))
   }else{
-    cvx <- sqrt(var(x[,1]))/mean(x[,1])
+    if(mean(x[, 1])==0) 
+      mx <- 1
+    else
+      mx <- mean(x[, 1])
+    cvx <- sqrt(var(x[, 1]))/mx
     for(j in 2:p){
-      if(sqrt(var(x[,j]))/mean(x[,j]) > cvx){
-        cvx <- sqrt(var(x[,j]))/mean(x[,j])
+      if(mean(x[, j])==0) 
+        mx <- 1
+      else
+        mx <- mean(x[, j])
+      if(sqrt(var(x[,j]))/mx > cvx){
+        cvx <- sqrt(var(x[,j]))/mx
         sfidx <- j
       }
     }
@@ -1696,7 +1703,7 @@ get.algorithms <- function(atype="prototype"){
   }
   if(atype=="membership"){
     algonames <- vector(mode = "character", length = 3)
-    algonames <- c("imembones", "imembrand", "imembucr")
+    algonames <- c("imembones", "imembrand", "figen")
   }
   return(algonames)
 }

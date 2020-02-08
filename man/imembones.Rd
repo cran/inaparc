@@ -33,7 +33,7 @@ Zeynel Cebeci, Cagatay Cebeci
 
 \seealso{
  \code{\link{imembrand}},
- \code{\link{imembucr}}
+ \code{\link{figen}}
 }
 
 \examples{

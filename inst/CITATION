@@ -1,10 +1,16 @@
-year <- sub("-.*", "", meta$Date) 
-note <- sprintf("R package version %s", meta$Version)
-textVersion = paste0("Cebeci, Z. & Cebeci, C. (", year,"). inaparc: Initialization Algorithms for Partitioning Cluster Analysis. ", note, ", URL https://CRAN.R-project.org/package=inaparc")
-bibentry(textVersion, bibtype = "Manual",
- title = "{inaparc}: Initialization Algorithms for Partitioning Cluster Analysis",
- author = c(person("Zeynel", "Cebeci"),
- person("Cagatay", "Cebeci")),
- year = year,
- note = note, 
- url = "https://CRAN.R-project.org/package=inaparc")
+citHeader("To cite the package 'inaparc' in publications use:")
+citEntry(entry = "InProceedings",
+ title = "Initialization of Membership Degree Matrix for Fast Convergence of Fuzzy C-Means Clustering",
+ author = c(person("Zeynel", "Cebeci"), person("Cagatay", "Cebeci")),
+ booktitle = "2018 International Conference on Artificial Intelligence and Data Processing (IDAP)",
+ year = "2018",
+ pages="1-5", 
+ month="9",
+ publisher = "IEEE",
+ doi = "10.1109/IDAP.2018.8620920",
+
+textVersion = paste("Cebeci, Z. (2018),",
+   "Initialization of Membership Degree Matrix for Fast Convergence of Fuzzy C-Means Clustering.", 
+   "2018 International Conference on Artificial Intelligence and Data Processing (IDAP), IEEE, Sep. 2018, pp. 1-5.",
+   "doi: 10.1109/IDAP.2018.8620920")
+)

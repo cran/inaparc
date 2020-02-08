@@ -31,7 +31,7 @@ Zeynel Cebeci, Cagatay Cebeci
 }
 
 \seealso{
- \code{\link{imembucr}},
+ \code{\link{figen}},
  \code{\link{imembones}}
 }
 

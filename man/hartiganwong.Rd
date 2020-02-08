@@ -30,7 +30,7 @@ Zeynel Cebeci, Cagatay Cebeci
 }
 
 \references{
-Hartigan, J.A. & Wong, W.A., (1979). Algorithm AS 136: A K-means clustering algorithm, \emph{J of the Royal Statistical Society}, C 28 (1): 100-108.  url:\url{https://www.labri.fr/perso/bpinaud/userfiles/downloads/hartigan_1979_kmeans.pdf}
+Hartigan, J.A. & Wong, W.A., (1979). Algorithm AS 136: A K-means clustering algorithm, \emph{J of the Royal Statistical Society}, C 28 (1): 100-108.  
 
 Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. arXiv:\url{https://arxiv.org/pdf/1209.1960.pdf}
 }
