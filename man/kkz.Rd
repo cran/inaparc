@@ -30,7 +30,7 @@ Zeynel Cebeci, Cagatay Cebeci
 }
 
 \references{
-Katsavounidis, I., Kuo, C. & Zhang, Z. (1994). A new initialization technique for generalized Lloyd iteration. \emph{IEEE Signal Processing Letters}, 1 (10): 144-146. url:\url{https://pdfs.semanticscholar.org/0103/d3599757c77f6f3cbe3daf2470f13419cd90.pdf}
+Katsavounidis, I., Kuo, C. & Zhang, Z. (1994). A new initialization technique for generalized Lloyd iteration. \emph{IEEE Signal Processing Letters}, 1 (10): 144-146. url:\url{https://www.semanticscholar.org/paper/A-new-initialization-technique-for-generalized-Katsavounidis-Kuo/0103d3599757c77f6f3cbe3daf2470f13419cd90?p2df}
 }
 
 \seealso{

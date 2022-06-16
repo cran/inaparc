@@ -35,7 +35,7 @@ Inofrep, \dfn{initialization on the frequency polygon} of a selected feature is 
 \references{
 Aitnouri E.M., Wang, S., Ziou, D., Vaillancourt, J. & Gagnon, L. (1999). An algorithm for determination of the number of modes for pdf estimation of multi-modal histograms, in \emph{Proc. of Vision Interface '99}, Trois-Rivieres, Canada, May 1999, p. 368-374.  
 
-Tan, P. N., Steinbach, M., & Kumar, V. (2006). Cluster analysis: Basic concepts and algorithms. In \emph{Introduction to Data Mining}, Pearson Addison Wesley. \url{http://www-users.cs.umn.edu/~kumar/dmbook/ch8.pdf}
+Tan, P. N., Steinbach, M., & Kumar, V. (2006). Cluster analysis: Basic concepts and algorithms. In \emph{Introduction to Data Mining}, Pearson Addison Wesley. \url{ https://www-users.cse.umn.edu/~kumar/dmbook/ch8.pdf}
 }
 
 \author{

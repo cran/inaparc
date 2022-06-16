@@ -33,7 +33,7 @@ Zeynel Cebeci, Cagatay Cebeci
 }
 
 \references{
-Borgelt, C., (2005). \emph{Prototype-based classification and clustering}. Habilitationsschrift zur Erlangung der Venia legendi fuer Informatik, vorgelegt der Fakultaet fuer Informatik der Otto-von-Guericke-Universitaet Magdeburg, Magdeburg, 22 June 2005. url:\url{http://www.borgelt.net/habil/pbcc.pdf}
+Borgelt, C., (2005). \emph{Prototype-based classification and clustering}. Habilitationsschrift zur Erlangung der Venia legendi fuer Informatik, vorgelegt der Fakultaet fuer Informatik der Otto-von-Guericke-Universitaet Magdeburg, Magdeburg, 22 June 2005. url:\url{https://borgelt.net/habil/pbcc.pdf}
 
 Carnell, R., (2016). lhs: Latin Hypercube Samples. R package version 0.14. \url{https://CRAN.R-project.org/package=lhs}
 }

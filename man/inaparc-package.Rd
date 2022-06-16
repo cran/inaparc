@@ -25,17 +25,17 @@ Membership degrees matrices are usually initialized with the techniques based on
 \references{
 Bezdek J.C. (1981). Pattern recognition with fuzzy objective function algorithms. Plenum, NY, 256 p. <ISBN:0306406713>
 
-Borgelt, C., (2005). \emph{Prototype-based classification and clustering}. Habilitationsschrift zur Erlangung der Venia legendi fuer Informatik, vorgelegt der Fakultaet fuer Informatik der Otto-von-Guericke-Universitaet Magdeburg, Magdeburg, 22 June 2005. url:\url{http://www.borgelt.net/habil/pbcc.pdf}
+Borgelt, C., (2005). \emph{Prototype-based classification and clustering}. Habilitationsschrift zur Erlangung der Venia legendi fuer Informatik, vorgelegt der Fakultaet fuer Informatik der Otto-von-Guericke-Universitaet Magdeburg, Magdeburg, 22 June 2005. url:\url{https://borgelt.net/habil/pbcc.pdf}
 
-Cebeci, Z. (2018). Initialization of Membership Degree Matrix for Fast Convergence of Fuzzy C-Means Clustering", In Proc. of \emph{2018 International Conference on Artificial Intelligence and Data Processing (IDAP)}, IEEE, Sep. 2018, pp. 1-5., doi: \href{https:/doi.org/10.1109/IDAP.2018.8620920}{10.1109/IDAP.2018.8620920}
+Cebeci, Z. (2018). Initialization of Membership Degree Matrix for Fast Convergence of Fuzzy C-Means Clustering", In Proc. of \emph{2018 International Conference on Artificial Intelligence and Data Processing (IDAP)}, IEEE, Sep. 2018, pp. 1-5., \doi{https://doi.org/10.1109/IDAP.2018.8620920}
 
-Cebeci, Z., Sahin, M. & Cebeci, C. (2018). Data dependent techniques for initialization of cluster prototypes in partitioning cluster analysis. In Proc. of \emph{4th International Conference on Engineering and Natural Science}, Kiev, Ukraine, May 2018. pp. 12-22. \href{https://www.researchgate.net/publication/327445914_Data_Dependent_Techniques_for_Initialization_of_Cluster_Prototypes_in_Partitioning_Cluster_Analysis}{Retrieved from ResearchGate}
+Cebeci, Z., Sahin, M. & Cebeci, C. (2018). Data dependent techniques for initialization of cluster prototypes in partitioning cluster analysis. In Proc. of \emph{4th International Conference on Engineering and Natural Science}, Kiev, Ukraine, May 2018. pp. 12-22. 
 
-Rokah, L. & Maimon, O. (2005). Clustering methods. In \emph{Data Mining and Knowledge Discovery Handbook (ed. O. Maimon)}, Springer US. pp. 321-352. url:\url{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.149.9326&rep=rep1&type=pdf}
+Rokah, L. & Maimon, O. (2005). Clustering methods. In \emph{Data Mining and Knowledge Discovery Handbook (ed. O. Maimon)}, Springer US. pp. 321-352. \doi{https://doi.org/10.1.1.149.9326}
 
-Tan, P. N., Steinbach, M., & Kumar, V. (2006). Cluster analysis: Basic concepts and algorithms. In \emph{Introduction to Data Mining}. Pearson Addison Wesley. url:\url{http://www-users.cs.umn.edu/~kumar/dmbook/ch8.pdf}
+Tan, P. N., Steinbach, M., & Kumar, V. (2006). Cluster analysis: Basic concepts and algorithms. In \emph{Introduction to Data Mining}. Pearson Addison Wesley. url:\url{https://www-users.cse.umn.edu/~kumar/dmbook/ch8.pdf}
 
-Khan, F. (2012). An initial seed selection algorithm for k-means clustering of georeferenced data to improve replicability of cluster assignments for mapping application. \emph{Applied Soft Computing}, 12 (11) : 3698-3700. doi:\url{https://doi.org/10.1016/j.asoc.2012.07.021}
+Khan, F. (2012). An initial seed selection algorithm for k-means clustering of georeferenced data to improve replicability of cluster assignments for mapping application. \emph{Applied Soft Computing}, 12 (11) : 3698-3700. \doi{https://doi.org/10.1016/j.asoc.2012.07.021}
 
 Celebi, M.E., Kingravi, H.A. & Vela, P.A. (2013). A comparative study of efficient initialization methods for the K-means clustering algorithm, \emph{Expert Systems with Applications}, 40 (1): 200-210. arXiv:\url{https://arxiv.org/pdf/1209.1960.pdf}
 }

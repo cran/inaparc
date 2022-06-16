@@ -34,7 +34,7 @@ Zeynel Cebeci, Cagatay Cebeci
 }
 
 \references{
-Khan, F. (2012). An initial seed selection algorithm for k-means clustering of georeferenced data to improve replicability of cluster assignments for mapping application. \emph{Applied Soft Computing}, 12 (11) : 3698-3700. doi:\url{https://doi.org/10.1016/j.asoc.2012.07.021}
+Khan, F. (2012). An initial seed selection algorithm for k-means clustering of georeferenced data to improve replicability of cluster assignments for mapping application. \emph{Applied Soft Computing}, 12 (11) : 3698-3700. \doi{https://doi.org/10.1016/j.asoc.2012.07.021}
 }
 
 \seealso{

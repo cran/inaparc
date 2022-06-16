@@ -1,5 +1,10 @@
 \name{NEWS}
 \title{News for Package \pkg{inaparc}}
+\section{Release of the version 1.2.0, (June 15, 2022)}{
+  \itemize{
+    \item Bug fix in Description and some Rd files.
+  }
+}
 
 \section{Release of the version 1.1.0, (Feb 8, 2020)}{
   \itemize{
