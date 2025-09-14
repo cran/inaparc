@@ -24,7 +24,7 @@ The function \code{kmpp} is an implementation of the initialization algorithm of
 \value{an object of class \sQuote{inaparc}, which is a list consists of the following items:
   \item{v}{a numeric matrix containing the initial cluster prototypes.}
   \item{ctype}{a string representing the type of centroid, which used to build prototype matrix. Its value is \sQuote{obj} with this function because the cluster prototypes are the objects selected by the algorithm.}
-  \item{call}{a string containing the matched function call that generates this sQuote{inaparc} object.}
+  \item{call}{a string containing the matched function call that generates this \sQuote{inaparc} object.}
 }
 
 \references{

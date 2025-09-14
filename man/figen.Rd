@@ -32,8 +32,9 @@ Zeynel Cebeci, Cagatay Cebeci
 }
 
 \references{
-Cebeci, Z. (2018), "Initialization of Membership Degree Matrix for Fast Convergence of Fuzzy C-Means Clustering", In Proc. of \emph{2018 International Conference on Artificial Intelligence and Data Processing (IDAP)}, IEEE, Sep. 2018, pp. 1-5., doi: \href{https:/doi.org/10.1109/IDAP.2018.8620920}{10.1109/IDAP.2018.8620920}
+Cebeci, Z. (2018). Initialization of membership degree matrix for fast convergence of fuzzy C-means clustering. In \emph{Proceedings of the 2018 International Conference on Artificial Intelligence and Data Processing (IDAP)}. IEEE, September 2018, 1--5. \doi{10.1109/IDAP.2018.8620920}
 }
+
 
 \seealso{
  \code{\link{imembrand}},

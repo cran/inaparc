@@ -33,7 +33,7 @@ Zeynel Cebeci, Cagatay Cebeci
 \references{
 Spaeth, H. (1977). Computational experiences with the exchange method: Applied to four commonly used partitioning cluster analysis criteria, \emph{European Journal of Operational Research} 1 (1): 23-31. \doi{https://doi.org/10.1016/S0377-2217(77)81005-9}
 
-Gonzalez, T. (1985), Clustering to minimize the maximum intercluster distance, \emph{Theoretical Computer Science} 38 (2-3): 293-306. url:\url{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.366.8183&rep=rep1&type=pdf}
+Gonzalez, T. (1985), Clustering to minimize the maximum intercluster distance, \emph{Theoretical Computer Science} 38 (2-3): 293-306. \doi{10.1016/0304-3975(85)90224-5}
 
 Duda, R.O., Hart, P.E. & Stork, D.G. (2000). \emph{Pattern Classification}, Wiley-Interscience. <ISBN:978-0-471-05669-0>
 
